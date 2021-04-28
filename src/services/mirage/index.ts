@@ -55,6 +55,8 @@ export function makeServer() {
             { users }
           )
       });
+
+      this.get("/users/:id");
       this.post("/users");
 
       this.namespace = ""; // this is to reset the route, so we don't have conflict between miragejs routes and possible future api routes using Next Routing
