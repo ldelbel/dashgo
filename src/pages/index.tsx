@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Input } from "../components/Form/Input";
+import { useRouter } from "next/router";
 
 type SigninFormData = {
   email: string;
@@ -18,6 +19,7 @@ export default function SignIn() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormSchema),
   });
+  const router = useRouter();
 
   const handleSignIn: SubmitHandler<SigninFormData> = async (
     values,
@@ -25,6 +27,7 @@ export default function SignIn() {
   ) => {
     // SubmitHandler comes from react-hook and brings typed event so we can use
     await new Promise((resolve) => setTimeout(resolve, 2000)); // this is just to take a while to login, so the loading animation can be seen
+    router.push('dashboard')
   };
 
   return (
@@ -45,7 +48,7 @@ export default function SignIn() {
             name="email"
             label="E-mail"
             error={formState.errors.email}
-            {...register("name")}
+            {...register("email")}
           />
           <Input
             type="password"
